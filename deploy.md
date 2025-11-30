@@ -2,10 +2,10 @@
 # CertiGen Deployment Guide
 
 This document outlines the complete deployment strategy for **CertiGen**, including database setup, backend deployment, frontend deployment, and post-deployment validation.
-CertiGen uses a dual-deployment structure:
 
-**Backend API** → Render (supports Puppeteer)
-**Frontend Client** → Vercel/Netlify (Static CDN hosting)
+CertiGen uses a dual-deployment structure:
+* **Backend API** → Render (supports Puppeteer)**
+* **Frontend Client** → Vercel/Netlify (Static CDN hosting)**
 ---
 
 ## Part 1: Database Setup (MongoDB Atlas)
