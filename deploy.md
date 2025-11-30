@@ -1,4 +1,3 @@
----
 # CertiGen Deployment Guide
 
 This document outlines the complete deployment strategy for **CertiGen**, including database setup, backend deployment, frontend deployment, and post-deployment validation.
