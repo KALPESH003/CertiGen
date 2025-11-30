@@ -77,7 +77,7 @@ This system avoids local file storage entirely by using **Puppeteer** for dynami
 ### 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/YourUsername/CertiGen.git
+git clone https://github.com/KALPESH003/CertiGen.git
 cd CertiGen
 ```
 
