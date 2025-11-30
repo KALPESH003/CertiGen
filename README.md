@@ -1,159 +1,139 @@
-# CertiGen - Enterprise Credential Management System
+---
 
-CertiGen is a full-stack, cloud-native application designed to issue, manage, and verify digital credentials at scale. Built with a Stateless Architecture, it leverages Node.js streams for on-the-fly PDF generation and MongoDB for high-performance indexing of verification records.
+# 🎓 CertiGen – Enterprise E-Certificate Generation System
 
-Architectural Highlight: This system eschews local file storage in favor of dynamic generation (Puppeteer), ensuring zero-storage overhead and full compatibility with ephemeral container environments (Docker/Kubernetes).
+CertiGen is a full-stack, cloud-native application designed to issue, manage, and verify digital credentials at scale. Built with a **stateless architecture**, it leverages **Node.js streams** for on-the-fly PDF generation and **MongoDB** for high-performance indexing of verification records.
 
-🚀 Key Technical Features
+### 🏗 Architectural Highlight
 
-🛡️ Security & Access Control
+This system avoids local file storage entirely by using **Puppeteer** for dynamic generation, ensuring **zero-storage overhead** and full compatibility with container-based deployments (Docker/Kubernetes).
 
-RBAC (Role-Based Access Control): Granular permissions for Admins (manage templates) vs. Issuers (issue certificates).
+---
 
-HttpOnly Cookies: JWT tokens are stored securely to prevent XSS attacks.
+## 🚀 Key Features
 
-Helmet & Rate Limiting: DDOS protection and secure HTTP headers enabled by default.
+### 🛡️ Security & Access Control
 
-⚡ Core Engine
+* **RBAC (Role-Based Access Control):**
+  Granular permissions for *Admins* (manage templates) and *Issuers* (issue certificates).
+* **HttpOnly Cookies:**
+  Secure token storage to prevent XSS vulnerabilities.
+* **Helmet & Rate Limiting:**
+  Built-in protection against DDoS attacks and secure HTTP headers.
 
-Stateless PDF Streaming: Uses Puppeteer (Headless Chrome) to render pixel-perfect PDFs from HTML/CSS templates on demand.
+---
 
-Dynamic QR Codes: Embedded verification links generated in real-time.
+### ⚡ Core Engine
 
-Template Engine: Coordinate-based mapping system (X/Y JSON config) allows admins to design certificates without touching code.
+* **Stateless PDF Streaming:**
+  Uses Puppeteer (Headless Chrome) to render pixel-perfect PDFs from HTML/CSS templates.
+* **Dynamic QR Codes:**
+  Embedded verification links are generated on the fly.
+* **Template Engine:**
+  Coordinate-based (X/Y) JSON mapping for code-free template design.
 
-📧 Automated Distribution
+---
 
-Integrated Email Pipeline: Uses Nodemailer to generate, sign, and email PDF attachments instantly upon issuance.
+### 🎨 Frontend Experience
 
-🛠️ Tech Stack
+* **SPA Architecture:**
+  Built with HTML5, Vanilla JS, and Tailwind CSS—lightweight and dependency-free.
+* **Lazy Loading:**
+  Loads only the required views/assets.
+* **Public Verification Portal:**
+  Employers can verify certificates without authentication.
 
-Domain
+---
 
-Technologies
+### 📧 Automated Distribution
 
-Rationale
+* **Email Pipeline:**
+  Integrated with Nodemailer to generate, sign, and send PDF certificates instantly.
 
-Backend
+---
 
-Node.js, Express.js
+## 🛠 Tech Stack
 
-Non-blocking I/O ideal for handling concurrent PDF generation tasks.
+| Component      | Technology                      | Rationale                                    |
+| -------------- | ------------------------------- | -------------------------------------------- |
+| **Frontend**   | HTML5, Tailwind CSS, Vanilla JS | Lightweight and fast; no build tools needed. |
+| **Backend**    | Node.js, Express.js             | Perfect for handling concurrent PDF tasks.   |
+| **Database**   | MongoDB (Atlas)                 | Flexible schema for dynamic layouts.         |
+| **PDF Engine** | Puppeteer                       | High-fidelity rendering.                     |
+| **Security**   | BCrypt, JWT, Helmet, CORS       | Enterprise-grade protection.                 |
 
-Database
+---
 
-MongoDB (Atlas)
+## ⚙️ Installation & Setup
 
-Flexible schema for storing dynamic template layouts.
+### **Prerequisites**
 
-Frontend
+* Node.js **>= 18**
+* MongoDB Atlas connection string
+* Gmail App Password (for SMTP)
 
-HTML5, Tailwind CSS, Vanilla JS
+---
 
-Lightweight SPA architecture without build-step complexity.
+### 1. **Clone the Repository**
 
-PDF Engine
-
-Puppeteer
-
-Industry standard for high-fidelity rendering.
-
-Security
-
-BCrypt, JWT, Helmet, CORS
-
-Enterprise-grade security compliance.
-
-⚙️ Installation & Setup
-
-Prerequisites
-
-Node.js >= 18.0.0
-
-MongoDB Atlas Connection String
-
-Gmail App Password (for emails)
-
-1. Clone the Repository
-
-git clone [https://github.com/YourUsername/CertiGen.git](https://github.com/YourUsername/CertiGen.git)
+```bash
+git clone https://github.com/YourUsername/CertiGen.git
 cd CertiGen
+```
 
+---
 
-2. Backend Setup
+### 2. **Backend Setup**
 
+```bash
 cd backend
 npm install
+```
 
-# Configure Environment Variables
-# Create a .env file based on your configuration requirements
+#### Create `.env` in `/backend`
 
+```
+PORT=5000
+MONGO_URI=your_mongo_string
+JWT_SECRET=your_secret
+SMTP_EMAIL=your_email
+SMTP_PASSWORD=your_app_password
+```
 
-3. Start Development Server
+---
 
-# Inside /backend directory
+### 3. **Start Development Server**
+
+```bash
 npm run dev
-# Server runs on http://localhost:5000
+```
 
+Server starts at:
+👉 [http://localhost:5000](http://localhost:5000)
 
-4. Access the App
+---
 
-Open your browser to http://localhost:5000.
+### 4. **Access the App**
 
-Public Portal: Verification search.
+* **Public Verification Portal:** `http://localhost:5000`
+* **Admin Dashboard:** `http://localhost:5000/admin.html`
 
-Admin Portal: /admin.html (Log in to manage).
+---
 
-🔌 API Documentation
+## 🔌 API Documentation
 
-Method
+| Method   | Endpoint                         | Access  | Description                          |
+| -------- | -------------------------------- | ------- | ------------------------------------ |
+| **POST** | `/api/auth/login`                | Public  | Authenticate and set HttpOnly cookie |
+| **GET**  | `/api/certificates`              | Private | Fetch certificates (paginated)       |
+| **POST** | `/api/certificates`              | Issuer  | Generate + email certificate         |
+| **GET**  | `/api/verify/:id`                | Public  | Verify certificate                   |
+| **GET**  | `/api/certificates/:id/download` | Public  | Download/stream PDF                  |
 
-Endpoint
+---
 
-Access
+## 📜 License
 
-Description
+This project is licensed under the **MIT License**.
 
-POST
-
-/api/auth/login
-
-Public
-
-Authenticate and set HttpOnly cookie.
-
-GET
-
-/api/certificates
-
-Private
-
-List certificates (Pagination enabled).
-
-POST
-
-/api/certificates
-
-Issuer
-
-Generate a new certificate & Email it.
-
-GET
-
-/api/verify/:id
-
-Public
-
-Verify certificate validity via ID.
-
-GET
-
-/api/certificates/:id/download
-
-Public
-
-Stream PDF directly to browser.
-
-📜 License
-
-This project is licensed under the MIT License.
+---
