@@ -1,6 +1,6 @@
 ---
 
-# Deployment Guide
+# CertiGen Deployment Guide
 
 This document outlines the complete deployment strategy for **CertiGen**, including database setup, backend deployment, frontend deployment, and post-deployment validation.
 
@@ -106,7 +106,7 @@ This ensures all API calls route through Vercel → Render, preventing CORS issu
 
 ## Part 4: Post-Deployment Checks
 
-### ✔ 1. CORS Validation
+### 1. CORS Validation
 
 Ensure `CLIENT_URL` in Render equals your actual Vercel deployment URL:
 
@@ -114,7 +114,7 @@ Ensure `CLIENT_URL` in Render equals your actual Vercel deployment URL:
 https://your-app-name.vercel.app
 ```
 
-### ✔ 2. Backend Health Check
+### 2. Backend Health Check
 
 Visit:
 
@@ -122,9 +122,9 @@ Visit:
 https://your-backend.onrender.com/
 ```
 
-You should see an **“Active”** or similar JSON response.
+You should see a JSON response with an **“Active”** or similar field.
 
-### ✔ 3. Test PDF Generation
+### 3. Test PDF Generation
 
 1. Issue a test certificate.
 2. Attempt a download.
